@@ -1,21 +1,11 @@
-// Libraries
+import React from "react";
 import { NavigationContainer } from "@react-navigation/native";
-import { createNativeStackNavigator } from "@react-navigation/native-stack";
+import { Navigation } from "./src/components";
 
-// Components
-import { HomeScreen, GameSetupScreen } from "./components/screens";
-
-// Routing Setup
-const { Navigator, Screen } = createNativeStackNavigator();
-
-// Main App
 export default function App() {
   return (
     <NavigationContainer>
-      <Navigator>
-        <Screen name="Home" component={HomeScreen} />
-        <Screen name="Setup" component={GameSetupScreen} />
-      </Navigator>
+      <Navigation />
     </NavigationContainer>
   );
 }
