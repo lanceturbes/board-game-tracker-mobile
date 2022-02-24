@@ -16,7 +16,7 @@ npm install
 
 ## Usage
 
-Start the expo web server from the root of the project `npm start` to launch into android or IOS environments, provided you have a mobile device connected to your computer and proper drivers installed.
+Start the expo web server from the root of the project via `npm start` to launch into android or IOS environments, provided you have a mobile device connected to your computer and proper drivers installed.
 
 ## License
 [MIT](https://choosealicense.com/licenses/mit/)
