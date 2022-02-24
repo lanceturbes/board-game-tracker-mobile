@@ -4,7 +4,7 @@ This is a React-Native app to assist manual record-keeping of player balances an
 
 ## Installation
 
-Download a release and sideload it to your android device or emulator to use the production copy. This app is untested on IOS.
+There are no current production builds released.
 
 To run a development copy, clone down the source code, enter the root directory of the project, and install the necessary dependencies using [npm](https://docs.npmjs.com/downloading-and-installing-node-js-and-npm) (currently node.js v16 LTS, npm v8).
 
