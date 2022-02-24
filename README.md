@@ -16,7 +16,11 @@ npm install
 
 ## Usage
 
-Start the expo web server from the root of the project via `npm start` to launch into android or IOS environments, provided you have a mobile device connected to your computer and proper drivers installed.
+Start your mobile emulator(s) OR connect a mobile device (that you'd like to test this app on) to your desktop computer.
+
+Next, run `npm run android` OR `npm run ios` to build/install the app for your desired platform.
+
+Finally, start the Metro web server from the root of the project via `npm start` to launch into the app for development, provided you have a mobile device connected to your computer and proper drivers installed.
 
 ## License
 
