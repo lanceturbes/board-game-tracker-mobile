@@ -7,7 +7,7 @@ export default function HomeScreen(props) {
   return (
     <View style={styles.viewContainer}>
       <Text style={styles.textSubtitle}>Welcome to</Text>
-      <Text style={styles.textTitle}>Board Game Tracker!</Text>
+      <Text style={styles.textTitle}>Board Game Assistant!</Text>
       <Button
         title="Start New Game"
         color="orange"
