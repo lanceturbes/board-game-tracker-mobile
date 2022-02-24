@@ -1,32 +1,4 @@
 {
-  "expo": {
-    "name": "Board Game Assistant",
-    "slug": "Board-Game-Assistant",
-    "version": "1.0.0",
-    "orientation": "portrait",
-    "icon": "./assets/icon.png",
-    "splash": {
-      "image": "./assets/splash.png",
-      "resizeMode": "contain",
-      "backgroundColor": "#8A624A"
-    },
-    "updates": {
-      "fallbackToCacheTimeout": 0
-    },
-    "assetBundlePatterns": ["**/*"],
-    "ios": {
-      "bundleIdentifier": "com.lanceturbes.boardgameassistant",
-      "supportsTablet": true
-    },
-    "android": {
-      "package": "com.lanceturbes.boardgameassistant",
-      "adaptiveIcon": {
-        "foregroundImage": "./assets/adaptive-icon.png",
-        "backgroundColor": "#8A624A"
-      }
-    },
-    "web": {
-      "favicon": "./assets/favicon.png"
-    }
-  }
+  "name": "BoardGameTracker",
+  "displayName": "BoardGameTracker"
 }

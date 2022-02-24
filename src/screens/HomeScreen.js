@@ -24,11 +24,13 @@ const styles = StyleSheet.create({
     justifyContent: "center",
   },
   textTitle: {
+    color: "black",
     fontSize: 36,
     textAlign: "center",
     marginBottom: 24,
   },
   textSubtitle: {
+    color: "black",
     fontSize: 24,
     textAlign: "center",
   },
