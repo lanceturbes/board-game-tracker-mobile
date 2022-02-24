@@ -4,9 +4,13 @@ import React from "react";
 export default function GameSetupScreen() {
   return (
     <View>
-      <Text>Game Setup</Text>
+      <Text style={styles.textGeneral}>Game Setup</Text>
     </View>
   );
 }
 
-const styles = StyleSheet.create({});
+const styles = StyleSheet.create({
+  textGeneral: {
+    color: "black",
+  },
+});

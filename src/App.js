@@ -1,6 +1,11 @@
+/**
+ * @format
+ * @flow strict-local
+ */
+
 import React from "react";
 import { NavigationContainer } from "@react-navigation/native";
-import { Navigation } from "./src/components";
+import { Navigation } from "./components";
 
 export default function App() {
   return (
