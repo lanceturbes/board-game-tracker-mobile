@@ -2,7 +2,7 @@ import React from "react";
 import { bindActionCreators } from "redux";
 import { connect } from "react-redux";
 import gameOptionsActions from "../actions/gameOptionsActions";
-import { StyleSheet, View } from "react-native";
+import { StyleSheet, View, ScrollView } from "react-native";
 import {
   Text,
   Headline,
@@ -10,14 +10,21 @@ import {
   Button,
   RadioButton,
   Switch,
+  Checkbox,
 } from "react-native-paper";
 
 const GameSetupScreen = (props) => {
   // Global State Props
-  const { needDice, playerCount, diceCount } = props;
+  const { needDice, playerCount, diceCount, scoringSystem } = props;
 
   // Action Dispatchers
-  const { addPlayer, subtractPlayer, toggleNeedDice, setDiceCount } = props;
+  const {
+    addPlayer,
+    subtractPlayer,
+    toggleNeedDice,
+    setDiceCount,
+    setScoringSystem,
+  } = props;
 
   // Event handlers
   const handleDiceToggle = () => {
@@ -30,19 +37,21 @@ const GameSetupScreen = (props) => {
   };
 
   return (
-    <View style={styles.viewContainerScreen}>
+    <ScrollView contentContainerStyle={styles.scrollViewContent}>
+      {/* Player Count Setup */}
       <Headline>How many players?</Headline>
 
       <View style={styles.viewContainerInput}>
         <Button mode="contained" onPress={subtractPlayer}>
           -
         </Button>
-        <Subheading style={styles.textCounter}>{playerCount}</Subheading>
+        <Subheading style={styles.textButtonCounter}>{playerCount}</Subheading>
         <Button mode="contained" onPress={addPlayer}>
           +
         </Button>
       </View>
 
+      {/* Dice Setup */}
       <Headline>Need Dice?</Headline>
 
       <View style={styles.viewContainerInput}>
@@ -72,18 +81,37 @@ const GameSetupScreen = (props) => {
           </RadioButton.Group>
         </>
       )}
-    </View>
+
+      {/* Scoring System Setup */}
+      <Headline>Scoring System?</Headline>
+
+      <View style={styles.viewContainerInput}>
+        <Checkbox
+          status={scoringSystem.points ? "checked" : "unchecked"}
+          onPress={() =>
+            setScoringSystem({
+              ...scoringSystem,
+              points: !scoringSystem.points,
+            })
+          }
+        />
+        <Text>Points</Text>
+      </View>
+    </ScrollView>
   );
 };
 
 const styles = StyleSheet.create({
-  viewContainerScreen: {
-    flex: 1,
+  scrollViewContent: {
     alignItems: "center",
   },
   viewContainerInput: {
     flexDirection: "row",
     alignItems: "center",
+  },
+  textButtonCounter: {
+    padding: 24,
+    fontSize: 36,
   },
 });
 
