@@ -14,6 +14,9 @@ import {
 } from "react-native-paper";
 
 const GameSetupScreen = (props) => {
+  // Navigation Helper
+  const { navigate } = props.navigation;
+
   // Global State Props
   const { needDice, playerCount, diceCount, scoringSystem } = props;
 
@@ -97,6 +100,10 @@ const GameSetupScreen = (props) => {
         />
         <Text>Points</Text>
       </View>
+
+      <Button mode="contained" color="orange" onPress={() => navigate("Play")}>
+        Start Game!
+      </Button>
     </ScrollView>
   );
 };
