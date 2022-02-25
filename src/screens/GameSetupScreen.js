@@ -1,11 +1,16 @@
-import { StyleSheet, Text, View, Pressable, Switch } from "react-native";
 import React, { useState } from "react";
+import { StyleSheet, View, Pressable, Switch } from "react-native";
+import { Text } from "react-native-paper";
+import { RadioButton } from "react-native-paper";
+
+const initialGameOptions = {
+  playerCount: 1,
+  needDice: true,
+  diceCount: 1,
+};
 
 export default function GameSetupScreen() {
-  const [gameOptions, setGameOptions] = useState({
-    playerCount: 1,
-    needDice: true,
-  });
+  const [gameOptions, setGameOptions] = useState(initialGameOptions);
 
   const handlePlayerCount = (operation) => {
     switch (operation) {
@@ -34,6 +39,7 @@ export default function GameSetupScreen() {
     setGameOptions({
       ...gameOptions,
       needDice: !gameOptions.needDice,
+      diceCount: !gameOptions.needDice ? 1 : 0,
     });
   };
 
@@ -41,7 +47,7 @@ export default function GameSetupScreen() {
     <View style={styles.viewContainerScreen}>
       <Text style={styles.textTitle}>How many players?</Text>
 
-      <View style={styles.viewContainerCounter}>
+      <View style={styles.viewContainerInput}>
         <Pressable
           style={styles.buttonCounter}
           title="-1"
@@ -59,7 +65,34 @@ export default function GameSetupScreen() {
       </View>
 
       <Text style={styles.textTitle}>Need Dice?</Text>
-      <Switch value={gameOptions.needDice} onValueChange={handleDiceToggle} />
+
+      <View style={styles.viewContainerInput}>
+        <Text>No</Text>
+        <Switch value={gameOptions.needDice} onValueChange={handleDiceToggle} />
+        <Text>Yes</Text>
+      </View>
+
+      {gameOptions.needDice && (
+        <>
+          <Text>How many dice?</Text>
+
+          <RadioButton.Group
+            onValueChange={(newValue) =>
+              setGameOptions({ ...gameOptions, diceCount: newValue })
+            }
+            value={gameOptions.diceCount}
+          >
+            <View>
+              <Text>1</Text>
+              <RadioButton value={1} />
+            </View>
+            <View>
+              <Text>2</Text>
+              <RadioButton value={2} />
+            </View>
+          </RadioButton.Group>
+        </>
+      )}
     </View>
   );
 }
@@ -69,7 +102,7 @@ const styles = StyleSheet.create({
     flex: 1,
     alignItems: "center",
   },
-  viewContainerCounter: {
+  viewContainerInput: {
     flexDirection: "row",
     alignItems: "center",
     textAlign: "center",
