@@ -1,90 +1,64 @@
-import React, { useState } from "react";
+import React from "react";
+import { bindActionCreators } from "redux";
+import { connect } from "react-redux";
+import gameOptionsActions from "../actions/gameOptionsActions";
 import { StyleSheet, View } from "react-native";
 import {
   Text,
   Headline,
   Subheading,
-  Divider,
   Button,
   RadioButton,
   Switch,
 } from "react-native-paper";
 
-const initialGameOptions = {
-  playerCount: 1,
-  needDice: true,
-  diceCount: 1,
-};
+const GameSetupScreen = (props) => {
+  // Global State Props
+  const { needDice, playerCount, diceCount } = props;
 
-export default function GameSetupScreen() {
-  const [gameOptions, setGameOptions] = useState(initialGameOptions);
+  // Action Dispatchers
+  const { addPlayer, subtractPlayer, toggleNeedDice, setDiceCount } = props;
 
-  const handlePlayerCount = (operation) => {
-    switch (operation) {
-      case "add":
-        setGameOptions({
-          ...gameOptions,
-          playerCount: gameOptions.playerCount + 1,
-        });
-        break;
-      case "subtract":
-        // Prevent going below 1
-        if (gameOptions.playerCount - 1 > 0) {
-          setGameOptions({
-            ...gameOptions,
-            playerCount: gameOptions.playerCount - 1,
-          });
-        }
-        break;
-      default:
-        console.error("Must pass 'add' or 'subtract' to 'handlePlayerCount()'");
-        break;
-    }
-  };
-
+  // Event handlers
   const handleDiceToggle = () => {
-    setGameOptions({
-      ...gameOptions,
-      needDice: !gameOptions.needDice,
-      diceCount: !gameOptions.needDice ? 1 : 0,
-    });
+    toggleNeedDice();
+    if (!needDice) {
+      setDiceCount(1);
+    } else {
+      setDiceCount(0);
+    }
   };
 
   return (
     <View style={styles.viewContainerScreen}>
       <Headline>How many players?</Headline>
+
       <View style={styles.viewContainerInput}>
-        <Button mode="contained" onPress={() => handlePlayerCount("subtract")}>
+        <Button mode="contained" onPress={subtractPlayer}>
           -
         </Button>
-        <Subheading style={styles.textCounter}>
-          {gameOptions.playerCount}
-        </Subheading>
-        <Button mode="contained" onPress={() => handlePlayerCount("add")}>
+        <Subheading style={styles.textCounter}>{playerCount}</Subheading>
+        <Button mode="contained" onPress={addPlayer}>
           +
         </Button>
       </View>
 
-      <Divider />
-
       <Headline>Need Dice?</Headline>
+
       <View style={styles.viewContainerInput}>
         <Text>No</Text>
-        <Switch value={gameOptions.needDice} onValueChange={handleDiceToggle} />
+        <Switch value={needDice} onValueChange={handleDiceToggle} />
         <Text>Yes</Text>
       </View>
 
-      <Divider />
-
-      {gameOptions.needDice && (
+      {/* Render dice options if needed */}
+      {needDice && (
         <>
           <Subheading>How many dice?</Subheading>
 
           <RadioButton.Group
-            onValueChange={(newValue) =>
-              setGameOptions({ ...gameOptions, diceCount: newValue })
-            }
-            value={gameOptions.diceCount}
+            value={diceCount}
+            onValueChange={(newValue) => setDiceCount(newValue)}
           >
             <View style={styles.viewContainerInput}>
               <Text>1</Text>
@@ -100,7 +74,7 @@ export default function GameSetupScreen() {
       )}
     </View>
   );
-}
+};
 
 const styles = StyleSheet.create({
   viewContainerScreen: {
@@ -112,3 +86,13 @@ const styles = StyleSheet.create({
     alignItems: "center",
   },
 });
+
+const mapStateToProps = (state) => {
+  return { ...state.gameOptions };
+};
+
+const mapDispatchToProps = (dispatch) => {
+  return bindActionCreators({ ...gameOptionsActions }, dispatch);
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(GameSetupScreen);
