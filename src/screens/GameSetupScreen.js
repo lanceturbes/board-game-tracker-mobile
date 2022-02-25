@@ -1,4 +1,4 @@
-import { StyleSheet, Text, View, Button } from "react-native";
+import { StyleSheet, Text, View, Pressable, Switch } from "react-native";
 import React, { useState } from "react";
 
 export default function GameSetupScreen() {
@@ -16,30 +16,34 @@ export default function GameSetupScreen() {
         }
         break;
       default:
-        console.error(
-          "Invalid operation inputted to 'handlePlayerCount' method in game setup screen.",
-        );
+        console.error("Must pass 'add' or 'subtract' to 'handlePlayerCount()'");
         break;
     }
   };
 
   return (
     <View style={styles.viewContainerScreen}>
-      <Text style={styles.textGeneral}>How many players?</Text>
+      <Text style={styles.textTitle}>How many players?</Text>
 
       <View style={styles.viewContainerCounter}>
-        <Button
+        <Pressable
           style={styles.buttonCounter}
           title="-1"
           onPress={() => handlePlayerCount("subtract")}
-        />
+        >
+          <Text style={styles.buttonText}>-</Text>
+        </Pressable>
         <Text style={styles.textCounter}>{playerCount}</Text>
-        <Button
+        <Pressable
           style={styles.buttonCounter}
-          title="+1"
           onPress={() => handlePlayerCount("add")}
-        />
+        >
+          <Text style={styles.buttonText}>+</Text>
+        </Pressable>
       </View>
+
+      <Text style={styles.textTitle}>Need Dice?</Text>
+      <Switch></Switch>
     </View>
   );
 }
@@ -50,20 +54,37 @@ const styles = StyleSheet.create({
     alignItems: "center",
   },
   viewContainerCounter: {
-    flex: 1,
+    flexDirection: "row",
     alignItems: "center",
-    justifyContent: "center",
     textAlign: "center",
+    justifyContent: "center",
   },
-  textGeneral: {
+  textTitle: {
     color: "black",
     fontSize: 32,
+    padding: 32,
   },
   textCounter: {
     fontSize: 48,
+    padding: 24,
+    color: "black",
   },
   buttonCounter: {
-    height: 64,
-    width: 64,
+    backgroundColor: "#282828",
+    height: 100,
+    width: 100,
+    borderRadius: 999,
+    flex: 1,
+    alignItems: "center",
+    justifyContent: "center",
+    maxWidth: 100,
+  },
+  buttonCounterAnimated: {
+    backgroundColor: "#fff",
+  },
+  buttonText: {
+    color: "#eee",
+    fontSize: 36,
+    textAlign: "center",
   },
 });
