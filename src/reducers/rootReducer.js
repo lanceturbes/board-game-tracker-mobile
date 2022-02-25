@@ -1,6 +1,6 @@
 import { combineReducers } from "redux";
 
-const initialState = {
+export const initialState = {
   playerCount: 1,
   needDice: true,
   diceCount: 1,
