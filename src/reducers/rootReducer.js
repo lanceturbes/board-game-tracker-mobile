@@ -4,6 +4,9 @@ export const initialState = {
   playerCount: 1,
   needDice: true,
   diceCount: 1,
+  scoringSystem: {
+    points: true,
+  },
 };
 
 const gameOptionsReducer = (state = initialState, action) => {
@@ -34,6 +37,12 @@ const gameOptionsReducer = (state = initialState, action) => {
       return {
         ...state,
         diceCount: action.payload,
+      };
+
+    case "SET_SCORING_SYSTEM":
+      return {
+        ...state,
+        scoringSystem: action.payload,
       };
 
     default:
