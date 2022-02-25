@@ -1,7 +1,7 @@
 import "react-native-gesture-handler";
 import React from "react";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
-import { HomeScreen, GameSetupScreen } from "../screens";
+import { HomeScreen, GameSetupScreen, GamePlayScreen } from "../screens";
 
 export default function Navigation(props) {
   const { initialRoute } = props;
@@ -11,6 +11,7 @@ export default function Navigation(props) {
     <Navigator initialRouteName={initialRoute || "Home"}>
       <Screen name="Home" component={HomeScreen} />
       <Screen name="Setup" component={GameSetupScreen} />
+      <Screen name="Play" component={GamePlayScreen} />
     </Navigator>
   );
 }
