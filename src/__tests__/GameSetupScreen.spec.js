@@ -1,24 +1,38 @@
+// Libraries
 import React from "react";
-import { render, fireEvent, waitFor } from "@testing-library/react-native";
+import { cleanup } from "@testing-library/react-native";
 import { NavigationContainer } from "@react-navigation/native";
+import { Provider as PaperProvider } from "react-native-paper";
+
+// Testing Utilities
+import { reduxRender, store } from "../utilities/testUtils";
+
+// Components
 import { Navigation } from "../components";
 
+// Mocks
 jest.mock("react-native/Libraries/Animated/NativeAnimatedHelper");
 
-describe("Home Screen", () => {
+// Cleanup
+afterEach(() => {
+  cleanup();
+  store.clearActions();
+});
+
+describe("Game Setup Screen", () => {
   const component = (
-    <NavigationContainer>
-      <Navigation initialRoute="Setup" />
-    </NavigationContainer>
+    <PaperProvider>
+      <NavigationContainer>
+        <Navigation initialRoute="Home" />
+      </NavigationContainer>
+    </PaperProvider>
   );
 
   it("renders without errors", () => {
-    render(component);
+    reduxRender(component);
   });
 
-  it("allows incrementing/decrementing of player count", () => {
-    const { getByText } = render(component);
-  });
+  it.todo("allows incrementing/decrementing of player count");
 
   it.todo("prevents settings player count below 1");
 
