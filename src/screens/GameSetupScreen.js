@@ -1,7 +1,14 @@
 import React, { useState } from "react";
-import { StyleSheet, View, Pressable, Switch } from "react-native";
-import { Text } from "react-native-paper";
-import { RadioButton } from "react-native-paper";
+import { StyleSheet, View } from "react-native";
+import {
+  Text,
+  Headline,
+  Subheading,
+  Divider,
+  Button,
+  RadioButton,
+  Switch,
+} from "react-native-paper";
 
 const initialGameOptions = {
   playerCount: 1,
@@ -45,36 +52,33 @@ export default function GameSetupScreen() {
 
   return (
     <View style={styles.viewContainerScreen}>
-      <Text style={styles.textTitle}>How many players?</Text>
-
+      <Headline>How many players?</Headline>
       <View style={styles.viewContainerInput}>
-        <Pressable
-          style={styles.buttonCounter}
-          title="-1"
-          onPress={() => handlePlayerCount("subtract")}
-        >
-          <Text style={styles.buttonText}>-</Text>
-        </Pressable>
-        <Text style={styles.textCounter}>{gameOptions.playerCount}</Text>
-        <Pressable
-          style={styles.buttonCounter}
-          onPress={() => handlePlayerCount("add")}
-        >
-          <Text style={styles.buttonText}>+</Text>
-        </Pressable>
+        <Button mode="contained" onPress={() => handlePlayerCount("subtract")}>
+          -
+        </Button>
+        <Subheading style={styles.textCounter}>
+          {gameOptions.playerCount}
+        </Subheading>
+        <Button mode="contained" onPress={() => handlePlayerCount("add")}>
+          +
+        </Button>
       </View>
 
-      <Text style={styles.textTitle}>Need Dice?</Text>
+      <Divider />
 
+      <Headline>Need Dice?</Headline>
       <View style={styles.viewContainerInput}>
         <Text>No</Text>
         <Switch value={gameOptions.needDice} onValueChange={handleDiceToggle} />
         <Text>Yes</Text>
       </View>
 
+      <Divider />
+
       {gameOptions.needDice && (
         <>
-          <Text>How many dice?</Text>
+          <Subheading>How many dice?</Subheading>
 
           <RadioButton.Group
             onValueChange={(newValue) =>
@@ -82,11 +86,12 @@ export default function GameSetupScreen() {
             }
             value={gameOptions.diceCount}
           >
-            <View>
+            <View style={styles.viewContainerInput}>
               <Text>1</Text>
               <RadioButton value={1} />
             </View>
-            <View>
+
+            <View style={styles.viewContainerInput}>
               <Text>2</Text>
               <RadioButton value={2} />
             </View>
@@ -105,35 +110,5 @@ const styles = StyleSheet.create({
   viewContainerInput: {
     flexDirection: "row",
     alignItems: "center",
-    textAlign: "center",
-    justifyContent: "center",
-  },
-  textTitle: {
-    color: "black",
-    fontSize: 32,
-    padding: 32,
-  },
-  textCounter: {
-    fontSize: 48,
-    padding: 24,
-    color: "black",
-  },
-  buttonCounter: {
-    backgroundColor: "#282828",
-    height: 100,
-    width: 100,
-    borderRadius: 999,
-    flex: 1,
-    alignItems: "center",
-    justifyContent: "center",
-    maxWidth: 100,
-  },
-  buttonCounterAnimated: {
-    backgroundColor: "#fff",
-  },
-  buttonText: {
-    color: "#eee",
-    fontSize: 36,
-    textAlign: "center",
   },
 });
