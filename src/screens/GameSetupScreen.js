@@ -2,23 +2,39 @@ import { StyleSheet, Text, View, Pressable, Switch } from "react-native";
 import React, { useState } from "react";
 
 export default function GameSetupScreen() {
-  const [playerCount, setPlayerCount] = useState(1);
+  const [gameOptions, setGameOptions] = useState({
+    playerCount: 1,
+    needDice: true,
+  });
 
   const handlePlayerCount = (operation) => {
     switch (operation) {
       case "add":
-        setPlayerCount(playerCount + 1);
+        setGameOptions({
+          ...gameOptions,
+          playerCount: gameOptions.playerCount + 1,
+        });
         break;
       case "subtract":
         // Prevent going below 1
-        if (playerCount - 1 > 0) {
-          setPlayerCount(playerCount - 1);
+        if (gameOptions.playerCount - 1 > 0) {
+          setGameOptions({
+            ...gameOptions,
+            playerCount: gameOptions.playerCount - 1,
+          });
         }
         break;
       default:
         console.error("Must pass 'add' or 'subtract' to 'handlePlayerCount()'");
         break;
     }
+  };
+
+  const handleDiceToggle = () => {
+    setGameOptions({
+      ...gameOptions,
+      needDice: !gameOptions.needDice,
+    });
   };
 
   return (
@@ -33,7 +49,7 @@ export default function GameSetupScreen() {
         >
           <Text style={styles.buttonText}>-</Text>
         </Pressable>
-        <Text style={styles.textCounter}>{playerCount}</Text>
+        <Text style={styles.textCounter}>{gameOptions.playerCount}</Text>
         <Pressable
           style={styles.buttonCounter}
           onPress={() => handlePlayerCount("add")}
@@ -43,7 +59,7 @@ export default function GameSetupScreen() {
       </View>
 
       <Text style={styles.textTitle}>Need Dice?</Text>
-      <Switch></Switch>
+      <Switch value={gameOptions.needDice} onValueChange={handleDiceToggle} />
     </View>
   );
 }
