@@ -30,7 +30,6 @@ const GamePlayScreen = (props) => {
           diceRoll.map((die, index) => {
             return (
               <View key={"DIE" + index} style={styles.viewDice}>
-                {console.log(diceRoll)}
                 <Text style={styles.textDiceValue}>{die}</Text>
               </View>
             );
