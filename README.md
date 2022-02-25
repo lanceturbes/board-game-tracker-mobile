@@ -26,7 +26,9 @@ Finally, start the Metro web server from the root of the project via `npm start`
 
 From the home screen, tap the "Start New Game" button. This will take you to the game setup menu, where you can provide game details for things like scoring, player count, and whether you need dice (and how many).
 
-Your responses will not clear if swapping pages, but be careful not to change options mid game, or you will potentially lose progress.
+Your responses will not clear if swapping pages, but be careful not to change critical options mid game, such as player count, or you will lose progress.
+
+On your turn, you can roll dice via the "Roll Dice" button to simulate a single or double dice role, depending on the requirements you set earlier. You can change between using 1, 2, or no dice at any time.
 
 **App is still in development!**
 
