@@ -12,6 +12,7 @@ import {
   Switch,
   Checkbox,
 } from "react-native-paper";
+import darkTheme from "../styles/theme-dark";
 
 const GameSetupScreen = (props) => {
   // Navigation Helper
@@ -111,6 +112,7 @@ const GameSetupScreen = (props) => {
 const styles = StyleSheet.create({
   scrollViewContent: {
     alignItems: "center",
+    backgroundColor: darkTheme.colors.background,
   },
   viewContainerInput: {
     flexDirection: "row",
