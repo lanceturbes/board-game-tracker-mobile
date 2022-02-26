@@ -1,4 +1,4 @@
-![dice logo](src/assets/readme-banner.png)
+![dice logo](src/assets/branding/readme-banner.png)
 
 # Board Game Tracker
 
