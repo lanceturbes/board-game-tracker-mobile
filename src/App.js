@@ -5,7 +5,7 @@
 
 import React, { useEffect } from "react";
 import { NavigationContainer } from "@react-navigation/native";
-import { SafeAreaView, StyleSheet, StatusBar } from "react-native";
+import { SafeAreaView, StyleSheet } from "react-native";
 import RNBootSplash from "react-native-bootsplash";
 
 import { Navigation } from "./components";
@@ -27,6 +27,5 @@ export default function App() {
 const styles = StyleSheet.create({
   appContainer: {
     flex: 1,
-    paddingTop: StatusBar.currentHeight,
   },
 });
