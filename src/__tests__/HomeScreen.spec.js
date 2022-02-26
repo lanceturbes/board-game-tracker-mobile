@@ -10,9 +10,6 @@ import { reduxRender, store } from "../utilities/testUtils";
 // Components
 import { Navigation } from "../components";
 
-// Mocks
-jest.mock("react-native/Libraries/Animated/NativeAnimatedHelper");
-
 // Cleanup
 afterEach(() => {
   cleanup();
