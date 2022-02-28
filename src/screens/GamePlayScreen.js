@@ -8,12 +8,21 @@ import { darkTheme } from "../styles/theme";
 import gameOptionsActions from "../actions/gameOptionsActions";
 import getDiceRoll from "../utilities/diceRoller";
 
+// Helper Methods
+const getInitialDiceArray = (diceCount) => {
+  const initialDiceArray = [];
+  for (let i = 0; i < diceCount; i++) {
+    initialDiceArray.push(0);
+  }
+  return initialDiceArray;
+};
+
 const GamePlayScreen = (props) => {
   // Global State Props
   const { needDice, diceCount } = props;
 
   // Local State
-  const [diceRoll, setDiceRoll] = useState(diceCount === 1 ? [0] : [0, 0]);
+  const [diceRoll, setDiceRoll] = useState(getInitialDiceArray(diceCount));
 
   return (
     <View style={styles.viewContainerScreen}>
@@ -22,15 +31,18 @@ const GamePlayScreen = (props) => {
       </View>
 
       <View style={styles.viewDiceContainer}>
+        {/* Show black question-mark placeholder(s) when not rolled */}
         {needDice &&
           diceRoll[0] === 0 &&
-          diceRoll.map((die) => {
+          diceRoll.map((die, index) => {
             return (
-              <View style={styles.viewDicePending}>
+              <View key={"DIE" + index} style={styles.viewDicePending}>
                 <Text style={styles.textDicePending}>?</Text>
               </View>
             );
           })}
+
+        {/* Show dice roll results if dice rolled */}
         {diceRoll[0] !== 0 &&
           diceRoll.map((die, index) => {
             return (
@@ -41,8 +53,9 @@ const GamePlayScreen = (props) => {
           })}
       </View>
 
-      {needDice && (
-        <View style={styles.viewContainerButtonArea}>
+      <View style={styles.viewContainerButtonArea}>
+        {/* Show 'roll dice' button if needed */}
+        {needDice && (
           <Button
             style={styles.buttonRollDice}
             mode="contained"
@@ -50,8 +63,11 @@ const GamePlayScreen = (props) => {
           >
             <Text style={styles.textRollDice}>Roll Dice</Text>
           </Button>
-        </View>
-      )}
+        )}
+        <Button style={styles.buttonEndTurn} mode="outlined">
+          <Text style={styles.textEndTurn}>End Turn</Text>
+        </Button>
+      </View>
     </View>
   );
 };
@@ -66,6 +82,7 @@ const styles = StyleSheet.create({
     alignItems: "center",
     justifyContent: "center",
     backgroundColor: darkTheme.colors.background,
+    paddingVertical: 64,
   },
   viewContainerLabelArea: {
     flex: 1,
@@ -74,6 +91,7 @@ const styles = StyleSheet.create({
   },
   viewContainerButtonArea: {
     flex: 1,
+    justifyContent: "flex-end",
   },
   viewDiceContainer: {
     flex: 2,
@@ -116,6 +134,17 @@ const styles = StyleSheet.create({
   },
   buttonRollDice: {
     width: 256,
+    marginBottom: 16,
+  },
+  buttonEndTurn: {
+    width: 256,
+    borderWidth: 2,
+    borderColor: darkTheme.colors.text,
+  },
+  textEndTurn: {
+    fontSize: 36,
+    lineHeight: 48,
+    color: darkTheme.colors.text,
   },
 });
 
