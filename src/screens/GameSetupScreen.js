@@ -12,7 +12,7 @@ import {
   Switch,
   Checkbox,
 } from "react-native-paper";
-import darkTheme from "../styles/theme-dark";
+import { darkTheme } from "../styles/theme";
 
 const GameSetupScreen = (props) => {
   // Navigation Helper
