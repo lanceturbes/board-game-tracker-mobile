@@ -7,7 +7,7 @@ import {
 } from "@react-navigation/native";
 import { Provider as PaperProvider } from "react-native-paper";
 import RNBootSplash from "react-native-bootsplash";
-import { useColorScheme } from "react-native";
+import { StatusBar, useColorScheme } from "react-native";
 
 // Global State Management
 import { createStore } from "redux";
@@ -28,14 +28,20 @@ export default function App() {
   }, []);
 
   return (
-    <ReduxProvider store={store}>
-      <NavigationContainer
-        theme={scheme === "dark" ? DarkNavTheme : LightNavTheme}
-      >
-        <PaperProvider theme={scheme === "dark" ? darkTheme : lightTheme}>
-          <Navigation />
-        </PaperProvider>
-      </NavigationContainer>
-    </ReduxProvider>
+    <>
+      <ReduxProvider store={store}>
+        <NavigationContainer
+          theme={scheme === "dark" ? DarkNavTheme : LightNavTheme}
+        >
+          <PaperProvider theme={scheme === "dark" ? darkTheme : lightTheme}>
+            <Navigation />
+          </PaperProvider>
+        </NavigationContainer>
+      </ReduxProvider>
+      <StatusBar
+        backgroundColor={scheme === "dark" ? "#121212" : "white"}
+        barStyle={scheme === "dark" ? "light-content" : "dark-content"}
+      />
+    </>
   );
 }
