@@ -13,7 +13,7 @@ const GamePlayScreen = (props) => {
   const { needDice, diceCount } = props;
 
   // Local State
-  const [diceRoll, setDiceRoll] = useState(null);
+  const [diceRoll, setDiceRoll] = useState(diceCount === 1 ? [0] : [0, 0]);
 
   return (
     <View style={styles.viewContainerScreen}>
@@ -22,12 +22,16 @@ const GamePlayScreen = (props) => {
       </View>
 
       <View style={styles.viewDiceContainer}>
-        {needDice && !diceRoll && (
-          <View style={styles.viewDicePending}>
-            <Text style={styles.textDicePending}>?</Text>
-          </View>
-        )}
-        {diceRoll &&
+        {needDice &&
+          diceRoll[0] === 0 &&
+          diceRoll.map((die) => {
+            return (
+              <View style={styles.viewDicePending}>
+                <Text style={styles.textDicePending}>?</Text>
+              </View>
+            );
+          })}
+        {diceRoll[0] !== 0 &&
           diceRoll.map((die, index) => {
             return (
               <View key={"DIE" + index} style={styles.viewDice}>
