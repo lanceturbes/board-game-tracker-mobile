@@ -43,43 +43,47 @@ const GameSetupScreen = (props) => {
   return (
     <ScrollView contentContainerStyle={styles.scrollViewContent}>
       {/* Player Count Setup */}
-      <Headline>How many players?</Headline>
+      <Headline style={styles.headlineQuestion}>How many players?</Headline>
 
       <View style={styles.viewContainerInput}>
         <Button mode="contained" onPress={subtractPlayer}>
-          -
+          <Text style={styles.textCounterButtonLabel}>-</Text>
         </Button>
         <Subheading style={styles.textButtonCounter}>{playerCount}</Subheading>
-        <Button mode="contained" onPress={addPlayer}>
-          +
+        <Button
+          style={styles.buttonCounter}
+          mode="contained"
+          onPress={addPlayer}
+        >
+          <Text style={styles.textCounterButtonLabel}>+</Text>
         </Button>
       </View>
 
       {/* Dice Setup */}
-      <Headline>Need Dice?</Headline>
+      <Headline style={styles.headlineQuestion}>Need Dice?</Headline>
 
       <View style={styles.viewContainerInput}>
-        <Text>No</Text>
+        <Text style={styles.textLabel}>No</Text>
         <Switch value={needDice} onValueChange={handleDiceToggle} />
-        <Text>Yes</Text>
+        <Text style={styles.textLabel}>Yes</Text>
       </View>
 
       {/* Render dice options if needed */}
       {needDice && (
         <>
-          <Subheading>How many dice?</Subheading>
+          <Subheading style={styles.textLabel}>How many dice?</Subheading>
 
           <RadioButton.Group
             value={diceCount}
             onValueChange={(newValue) => setDiceCount(newValue)}
           >
             <View style={styles.viewContainerInput}>
-              <Text>1</Text>
+              <Text style={styles.textLabel}>1</Text>
               <RadioButton value={1} />
             </View>
 
             <View style={styles.viewContainerInput}>
-              <Text>2</Text>
+              <Text style={styles.textLabel}>2</Text>
               <RadioButton value={2} />
             </View>
           </RadioButton.Group>
@@ -87,7 +91,7 @@ const GameSetupScreen = (props) => {
       )}
 
       {/* Scoring System Setup */}
-      <Headline>Scoring System?</Headline>
+      <Headline style={styles.headlineQuestion}>Scoring System?</Headline>
 
       <View style={styles.viewContainerInput}>
         <Checkbox
@@ -99,11 +103,16 @@ const GameSetupScreen = (props) => {
             })
           }
         />
-        <Text>Points</Text>
+        <Text style={styles.textLabel}>Points</Text>
       </View>
 
-      <Button mode="contained" color="orange" onPress={() => navigate("Play")}>
-        Start Game!
+      <Button
+        style={styles.buttonStartGame}
+        mode="contained"
+        color="orange"
+        onPress={() => navigate("Play")}
+      >
+        <Text style={styles.textButtonStartGame}>Start Game!</Text>
       </Button>
     </ScrollView>
   );
@@ -113,14 +122,37 @@ const styles = StyleSheet.create({
   scrollViewContent: {
     alignItems: "center",
     backgroundColor: darkTheme.colors.background,
+    flex: 1,
   },
   viewContainerInput: {
     flexDirection: "row",
     alignItems: "center",
   },
-  textButtonCounter: {
-    padding: 24,
+  headlineQuestion: {
     fontSize: 36,
+    lineHeight: 48,
+    paddingTop: 12,
+  },
+  textLabel: {
+    fontSize: 24,
+    lineHeight: 36,
+    paddingHorizontal: 4,
+  },
+  textButtonCounter: {
+    paddingHorizontal: 24,
+    fontSize: 36,
+    lineHeight: 48,
+  },
+  textCounterButtonLabel: {
+    fontSize: 24,
+    color: darkTheme.colors.background,
+  },
+  buttonStartGame: {
+    marginTop: 12,
+  },
+  textButtonStartGame: {
+    fontSize: 24,
+    lineHeight: 36,
   },
 });
 
