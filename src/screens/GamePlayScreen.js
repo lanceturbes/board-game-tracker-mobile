@@ -19,15 +19,26 @@ const getInitialDiceArray = (diceCount) => {
 
 const GamePlayScreen = (props) => {
   // Global State Props
-  const { needDice, diceCount } = props;
+  const { needDice, diceCount, currentActivePlayer } = props;
+
+  // Global Actions
+  const { rotateActivePlayer } = props;
 
   // Local State
   const [diceRoll, setDiceRoll] = useState(getInitialDiceArray(diceCount));
 
+  // Event Handlers
+  const handleEndTurn = () => {
+    setDiceRoll(getInitialDiceArray(diceCount));
+    rotateActivePlayer();
+  };
+
   return (
     <View style={styles.viewContainerScreen}>
       <View style={styles.viewContainerLabelArea}>
-        <Headline style={styles.headlineTitle}>Player 1's Turn</Headline>
+        <Headline style={styles.headlineTitle}>
+          Player {currentActivePlayer}'s Turn
+        </Headline>
       </View>
 
       <View style={styles.viewDiceContainer}>
@@ -64,7 +75,11 @@ const GamePlayScreen = (props) => {
             <Text style={styles.textRollDice}>Roll Dice</Text>
           </Button>
         )}
-        <Button style={styles.buttonEndTurn} mode="outlined">
+        <Button
+          style={styles.buttonEndTurn}
+          mode="outlined"
+          onPress={handleEndTurn}
+        >
           <Text style={styles.textEndTurn}>End Turn</Text>
         </Button>
       </View>
