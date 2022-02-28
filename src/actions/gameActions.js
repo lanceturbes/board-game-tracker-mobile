@@ -1,3 +1,7 @@
+const rotateActivePlayer = () => {
+  return { type: "ROTATE_ACTIVE_PLAYER" };
+};
+
 const toggleNeedDice = () => {
   return { type: "TOGGLE_NEED_DICE" };
 };
@@ -19,6 +23,7 @@ const setScoringSystem = (scoringSystem) => {
 };
 
 export default {
+  rotateActivePlayer,
   toggleNeedDice,
   addPlayer,
   subtractPlayer,

@@ -1,4 +1,5 @@
 export const initialGameOptionsState = {
+  currentActivePlayer: 1,
   playerCount: 1,
   needDice: true,
   diceCount: 1,
@@ -7,8 +8,25 @@ export const initialGameOptionsState = {
   },
 };
 
-export const gameOptionsReducer = (state = initialGameOptionsState, action) => {
+const getNextPlayer = (currentPlayer, maxPlayers) => {
+  if (currentPlayer === maxPlayers) {
+    return 1;
+  } else {
+    return currentPlayer + 1;
+  }
+};
+
+export const gameReducer = (state = initialGameOptionsState, action) => {
   switch (action.type) {
+    case "ROTATE_ACTIVE_PLAYER":
+      return {
+        ...state,
+        currentActivePlayer: getNextPlayer(
+          state.currentActivePlayer,
+          state.playerCount,
+        ),
+      };
+
     case "TOGGLE_NEED_DICE":
       return {
         ...state,

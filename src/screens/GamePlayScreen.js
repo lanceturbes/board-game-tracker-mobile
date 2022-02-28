@@ -5,7 +5,7 @@ import { bindActionCreators } from "redux";
 import { connect } from "react-redux";
 
 import { darkTheme } from "../styles/theme";
-import gameOptionsActions from "../actions/gameOptionsActions";
+import gameActions from "../actions/gameActions";
 import getDiceRoll from "../utilities/diceRoller";
 
 // Helper Methods
@@ -149,11 +149,11 @@ const styles = StyleSheet.create({
 });
 
 const mapStateToProps = (state) => {
-  return { ...state.gameOptions };
+  return { ...state.game };
 };
 
 const mapDispatchToProps = (dispatch) => {
-  return bindActionCreators({ ...gameOptionsActions }, dispatch);
+  return bindActionCreators({ ...gameActions }, dispatch);
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(GamePlayScreen);
