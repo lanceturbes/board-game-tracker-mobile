@@ -1,7 +1,7 @@
 import React from "react";
 import { bindActionCreators } from "redux";
 import { connect } from "react-redux";
-import gameOptionsActions from "../actions/gameOptionsActions";
+import gameActions from "../actions/gameActions";
 import { StyleSheet, View, ScrollView } from "react-native";
 import {
   Text,
@@ -157,11 +157,11 @@ const styles = StyleSheet.create({
 });
 
 const mapStateToProps = (state) => {
-  return { ...state.gameOptions };
+  return { ...state.game };
 };
 
 const mapDispatchToProps = (dispatch) => {
-  return bindActionCreators({ ...gameOptionsActions }, dispatch);
+  return bindActionCreators({ ...gameActions }, dispatch);
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(GameSetupScreen);
