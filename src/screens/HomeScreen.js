@@ -13,7 +13,13 @@ export default function HomeScreen(props) {
       <Image source={logo} style={styles.imageLogo} />
       <Subheading style={styles.subheadingSubtitle}>Welcome to</Subheading>
       <Headline style={styles.headlineTitle}>Board Game Assistant!</Headline>
-      <Button mode="contained" color="orange" onPress={() => navigate("Setup")}>
+      <Button
+        accessibilityLabel="get-started-button"
+        testID="get-started-button"
+        mode="contained"
+        color="orange"
+        onPress={() => navigate("Setup")}
+      >
         <Text style={styles.buttonStartText}>Start New Game</Text>
       </Button>
     </View>
