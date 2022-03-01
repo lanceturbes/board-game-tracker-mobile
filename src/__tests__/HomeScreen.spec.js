@@ -1,40 +1,34 @@
-// Libraries
-import React from "react";
-import { cleanup, fireEvent, waitFor } from "@testing-library/react-native";
-import { NavigationContainer } from "@react-navigation/native";
-import { Provider as PaperProvider } from "react-native-paper";
+import wd from "wd";
+import path from "path";
 
-// Testing Utilities
-import { reduxRender, store } from "../utilities/testUtils";
+jasmine.DEFAULT_TIMEOUT_INTERVAL = 60000;
+const PORT = 4723;
+const driver = wd.promiseChainRemote("localhost", PORT);
+const config = {
+  platformName: "Android",
+  platformVersion: "10",
+  deviceName: "Android Emulator",
+  app: path.join(
+    __dirname,
+    "../../android/app/build/outputs/apk/release/app-release.apk",
+  ),
+  disableWindowAnimation: true,
+};
 
-// Components
-import { Navigation } from "../components";
-
-// Cleanup
-afterEach(() => {
-  cleanup();
-  store.clearActions();
+beforeAll(async () => {
+  await driver.init(config);
 });
 
-describe("Home Screen", () => {
-  const component = (
-    <PaperProvider>
-      <NavigationContainer>
-        <Navigation initialRoute="Home" />
-      </NavigationContainer>
-    </PaperProvider>
+it("'get started' button navigates to setup page", async () => {
+  const getStartedButton = await driver.elementByAccessibilityId(
+    "get-started-button",
   );
 
-  it("renders without errors", () => {
-    reduxRender(component);
-  });
+  await getStartedButton.click();
+  await driver.sleep(300);
 
-  it("can navigate to the game setup page", async () => {
-    const { getByText } = reduxRender(component);
-
-    const button = getByText(/start new game/i);
-    fireEvent.press(button);
-
-    await waitFor(() => getByText(/how many players/i));
-  });
+  const howManyPlayersLabel = await driver
+    .elementByAccessibilityId("request-player-count-label")
+    .text();
+  expect(howManyPlayersLabel).toMatch(/how many players/i);
 });
