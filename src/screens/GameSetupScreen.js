@@ -52,12 +52,24 @@ const GameSetupScreen = (props) => {
       </Headline>
 
       <View style={styles.viewContainerInput}>
-        <Button mode="contained" onPress={subtractPlayer}>
+        <Button
+          accessibilityLabel="subtract-player-button"
+          testID="subtract-player-button"
+          mode="contained"
+          onPress={subtractPlayer}
+        >
           <Text style={styles.textCounterButtonLabel}>-</Text>
         </Button>
-        <Subheading style={styles.textButtonCounter}>{playerCount}</Subheading>
+        <Subheading
+          accessibilityLabel="player-count"
+          testID="player-count"
+          style={styles.textButtonCounter}
+        >
+          {playerCount}
+        </Subheading>
         <Button
-          style={styles.buttonCounter}
+          accessibilityLabel="add-player-button"
+          testID="add-player-button"
           mode="contained"
           onPress={addPlayer}
         >
