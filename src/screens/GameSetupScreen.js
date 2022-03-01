@@ -43,7 +43,13 @@ const GameSetupScreen = (props) => {
   return (
     <ScrollView contentContainerStyle={styles.scrollViewContent}>
       {/* Player Count Setup */}
-      <Headline style={styles.headlineQuestion}>How many players?</Headline>
+      <Headline
+        accessibilityLabel="request-player-count-label"
+        testID="request-player-count-label"
+        style={styles.headlineQuestion}
+      >
+        How many players?
+      </Headline>
 
       <View style={styles.viewContainerInput}>
         <Button mode="contained" onPress={subtractPlayer}>
