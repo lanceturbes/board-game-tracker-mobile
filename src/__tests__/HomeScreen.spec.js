@@ -1,34 +1,23 @@
-import wd from "wd";
-import path from "path";
+import React from "react";
+import { render, fireEvent } from "@testing-library/react-native";
+import { HomeScreen } from "../screens";
 
-jasmine.DEFAULT_TIMEOUT_INTERVAL = 60000;
-const PORT = 4723;
-const driver = wd.promiseChainRemote("localhost", PORT);
-const config = {
-  platformName: "Android",
-  platformVersion: "10",
-  deviceName: "Android Emulator",
-  app: path.join(
-    __dirname,
-    "../../android/app/build/outputs/apk/release/app-release.apk",
-  ),
-  disableWindowAnimation: true,
-};
+// Mock React Navigation
+const navigation = { navigate: jest.fn() };
 
-beforeAll(async () => {
-  await driver.init(config);
+it("renders without errors", () => {
+  const screen = render(<HomeScreen navigation={navigation} />);
+
+  const title = screen.queryAllByText(/welcome/i);
+
+  expect(title).toBeTruthy();
 });
 
-it("'get started' button navigates to setup page", async () => {
-  const getStartedButton = await driver.elementByAccessibilityId(
-    "get-started-button",
-  );
+it("allows navigation to setup page", async () => {
+  const screen = render(<HomeScreen navigation={navigation} />);
 
-  await getStartedButton.click();
-  await driver.sleep(300);
+  const startBtn = screen.queryByTestId("get-started-button");
+  await fireEvent.press(startBtn);
 
-  const howManyPlayersLabel = await driver
-    .elementByAccessibilityId("request-player-count-label")
-    .text();
-  expect(howManyPlayersLabel).toMatch(/how many players/i);
+  expect(navigation.navigate).toBeCalledWith("Setup");
 });
