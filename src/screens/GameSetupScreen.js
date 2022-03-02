@@ -125,6 +125,8 @@ const GameSetupScreen = (props) => {
       </View>
 
       <Button
+        testID="play-button"
+        accessibilityLabel="play-button"
         style={styles.buttonStartGame}
         mode="contained"
         color="orange"
