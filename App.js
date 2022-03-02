@@ -12,11 +12,11 @@ import { StatusBar, useColorScheme } from "react-native";
 // Global State Management
 import { createStore } from "redux";
 import { Provider as ReduxProvider } from "react-redux";
-import rootReducer from "./reducers/rootReducer";
+import rootReducer from "./src/reducers/rootReducer";
 
 // Configuration
-import { Navigation } from "./components";
-import { lightTheme, darkTheme } from "./styles/theme";
+import { Navigation } from "./src/components";
+import { lightTheme, darkTheme } from "./src/styles/theme";
 
 const store = createStore(rootReducer);
 
