@@ -1,63 +1,22 @@
-import { Platform } from "react-native";
-
-const fontConfig = {
-  web: {
-    regular: {
-      fontFamily: "BebasNeue-Regular",
-      fontWeight: "normal",
-    },
-    medium: {
-      fontFamily: "BebasNeue-Regular",
-      fontWeight: "normal",
-    },
-    light: {
-      fontFamily: "BebasNeue-Regular",
-      fontWeight: "normal",
-    },
-    thin: {
-      fontFamily: "BebasNeue-Regular",
-      fontWeight: "normal",
+const fontSetup = {
+  fontConfig: {
+    BebasNue: {
+      100: { normal: "BebasNeue-Regular" },
+      200: { normal: "BebasNeue-Regular" },
+      300: { normal: "BebasNeue-Regular" },
+      400: { normal: "BebasNeue-Regular" },
+      500: { normal: "BebasNeue-Regular" },
+      600: { normal: "BebasNeue-Regular" },
+      700: { normal: "BebasNeue-Regular" },
+      800: { normal: "BebasNeue-Regular" },
+      900: { normal: "BebasNeue-Regular" },
     },
   },
-  ios: {
-    regular: {
-      fontFamily: "System",
-      fontWeight: "normal",
-    },
-    medium: {
-      fontFamily: "System",
-      fontWeight: "normal",
-    },
-    light: {
-      fontFamily: "System",
-      fontWeight: "normal",
-    },
-    thin: {
-      fontFamily: "System",
-      fontWeight: "normal",
-    },
-  },
-  android: {
-    regular: {
-      fontFamily: "BebasNeue-Regular",
-      fontWeight: "normal",
-    },
-    medium: {
-      fontFamily: "BebasNeue-Regular",
-      fontWeight: "normal",
-    },
-    light: {
-      fontFamily: "BebasNeue-Regular",
-      fontWeight: "normal",
-    },
-    thin: {
-      fontFamily: "BebasNeue-Regular",
-      fontWeight: "normal",
-    },
+  fonts: {
+    heading: "BebasNue",
+    body: "BebasNue",
+    mono: "BebasNue",
   },
 };
 
-export default function configureFonts(config) {
-  const fonts = Platform.select({ ...fontConfig, ...config });
-  return fonts;
-}
+export default fontSetup;

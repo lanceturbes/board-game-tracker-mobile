@@ -5,7 +5,7 @@ import {
   DefaultTheme as LightNavTheme,
   DarkTheme as DarkNavTheme,
 } from "@react-navigation/native";
-import { Provider as PaperProvider } from "react-native-paper";
+import { NativeBaseProvider } from "native-base";
 import RNBootSplash from "react-native-bootsplash";
 import { StatusBar, useColorScheme } from "react-native";
 
@@ -16,7 +16,7 @@ import rootReducer from "./src/reducers/rootReducer";
 
 // Configuration
 import { Navigation } from "./src/components";
-import { lightTheme, darkTheme } from "./src/styles/theme";
+import theme from "./src/styles/theme";
 
 const store = createStore(rootReducer);
 
@@ -33,9 +33,9 @@ export default function App() {
         <NavigationContainer
           theme={scheme === "dark" ? DarkNavTheme : LightNavTheme}
         >
-          <PaperProvider theme={scheme === "dark" ? darkTheme : lightTheme}>
+          <NativeBaseProvider theme={theme}>
             <Navigation />
-          </PaperProvider>
+          </NativeBaseProvider>
         </NavigationContainer>
       </ReduxProvider>
       <StatusBar

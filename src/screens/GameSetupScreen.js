@@ -1,187 +1,91 @@
 import React from "react";
-import { bindActionCreators } from "redux";
-import { connect } from "react-redux";
-import gameActions from "../actions/gameActions";
-import { StyleSheet, View, ScrollView } from "react-native";
-import {
-  Text,
-  Headline,
-  Subheading,
-  Button,
-  RadioButton,
-  Switch,
-  Checkbox,
-} from "react-native-paper";
-import { darkTheme } from "../styles/theme";
+import { useDispatch, useSelector } from "react-redux";
+import { Heading, Radio, Button, Checkbox, Center, HStack } from "native-base";
 
-const GameSetupScreen = (props) => {
-  // Navigation Helper
+import {
+  addPlayer,
+  subtractPlayer,
+  toggleNeedDice,
+  setDiceCount,
+} from "../actions/gameActions";
+
+export default function GameSetupScreen(props) {
+  // Hook Access
   const { navigate } = props.navigation;
+  const dispatch = useDispatch();
 
   // Global State Props
-  const { needDice, playerCount, diceCount, scoringSystem } = props;
-
-  // Action Dispatchers
-  const {
-    addPlayer,
-    subtractPlayer,
-    toggleNeedDice,
-    setDiceCount,
-    setScoringSystem,
-  } = props;
+  const { needDice, playerCount, diceCount } = useSelector(
+    (state) => state.game,
+  );
 
   // Event handlers
   const handleDiceToggle = () => {
-    toggleNeedDice();
+    dispatch(toggleNeedDice());
     if (!needDice) {
-      setDiceCount(1);
+      dispatch(setDiceCount(1));
     } else {
-      setDiceCount(0);
+      dispatch(setDiceCount(0));
     }
   };
 
   return (
-    <ScrollView contentContainerStyle={styles.scrollViewContent}>
+    <Center bg="customBrown" flex={1}>
       {/* Player Count Setup */}
-      <Headline
-        accessibilityLabel="request-player-count-label"
-        testID="request-player-count-label"
-        style={styles.headlineQuestion}
-      >
-        How many players?
-      </Headline>
+      <Heading testID="request-player-count-label">How many players?</Heading>
 
-      <View style={styles.viewContainerInput}>
+      <HStack alignItems="center">
         <Button
-          accessibilityLabel="subtract-player-button"
           testID="subtract-player-button"
-          mode="contained"
-          onPress={subtractPlayer}
+          onPress={() => dispatch(subtractPlayer())}
+          size="lg"
         >
-          <Text style={styles.textCounterButtonLabel}>-</Text>
+          -
         </Button>
-        <Subheading
-          accessibilityLabel="player-count"
-          testID="player-count"
-          style={styles.textButtonCounter}
-        >
+        <Heading testID="player-count" paddingX="4">
           {playerCount}
-        </Subheading>
+        </Heading>
         <Button
-          accessibilityLabel="add-player-button"
           testID="add-player-button"
-          mode="contained"
-          onPress={addPlayer}
+          onPress={() => dispatch(addPlayer())}
+          size="lg"
         >
-          <Text style={styles.textCounterButtonLabel}>+</Text>
+          +
         </Button>
-      </View>
+      </HStack>
 
       {/* Dice Setup */}
-      <Headline style={styles.headlineQuestion}>Need Dice?</Headline>
+      <Heading>Need Dice?</Heading>
 
-      <View style={styles.viewContainerInput}>
-        <Text style={styles.textLabel}>No</Text>
-        <Switch value={needDice} onValueChange={handleDiceToggle} />
-        <Text style={styles.textLabel}>Yes</Text>
-      </View>
+      <Button testID="need-dice-switch" onPress={handleDiceToggle} minW="24">
+        {needDice ? "Yes" : "No"}
+      </Button>
 
       {/* Render dice options if needed */}
       {needDice && (
-        <>
-          <Subheading style={styles.textLabel}>How many dice?</Subheading>
+        <Center testID="dice-count-prompt">
+          <Heading>How many dice?</Heading>
 
-          <RadioButton.Group
+          <Radio.Group
+            name="diceCount"
+            onChange={(newValue) => dispatch(setDiceCount(newValue))}
             value={diceCount}
-            onValueChange={(newValue) => setDiceCount(newValue)}
           >
-            <View style={styles.viewContainerInput}>
-              <Text style={styles.textLabel}>1</Text>
-              <RadioButton value={1} />
-            </View>
-
-            <View style={styles.viewContainerInput}>
-              <Text style={styles.textLabel}>2</Text>
-              <RadioButton value={2} />
-            </View>
-          </RadioButton.Group>
-        </>
+            <Radio value={1}>1</Radio>
+            <Radio value={2}>2</Radio>
+          </Radio.Group>
+        </Center>
       )}
 
       {/* Scoring System Setup */}
-      <Headline style={styles.headlineQuestion}>Scoring System?</Headline>
+      <Heading>Scoring System?</Heading>
 
-      <View style={styles.viewContainerInput}>
-        <Checkbox
-          status={scoringSystem.points ? "checked" : "unchecked"}
-          onPress={() =>
-            setScoringSystem({
-              ...scoringSystem,
-              points: !scoringSystem.points,
-            })
-          }
-        />
-        <Text style={styles.textLabel}>Points</Text>
-      </View>
+      <Checkbox defaultIsChecked>Points</Checkbox>
 
-      <Button
-        testID="play-button"
-        accessibilityLabel="play-button"
-        style={styles.buttonStartGame}
-        mode="contained"
-        color="orange"
-        onPress={() => navigate("Play")}
-      >
-        <Text style={styles.textButtonStartGame}>Start Game!</Text>
+      {/* Play Button */}
+      <Button testID="play-button" onPress={() => navigate("Play")} minW="24">
+        Start Game!
       </Button>
-    </ScrollView>
+    </Center>
   );
-};
-
-const styles = StyleSheet.create({
-  scrollViewContent: {
-    alignItems: "center",
-    backgroundColor: darkTheme.colors.background,
-    flex: 1,
-  },
-  viewContainerInput: {
-    flexDirection: "row",
-    alignItems: "center",
-  },
-  headlineQuestion: {
-    fontSize: 36,
-    lineHeight: 48,
-    paddingTop: 12,
-  },
-  textLabel: {
-    fontSize: 24,
-    lineHeight: 36,
-    paddingHorizontal: 4,
-  },
-  textButtonCounter: {
-    paddingHorizontal: 24,
-    fontSize: 36,
-    lineHeight: 48,
-  },
-  textCounterButtonLabel: {
-    fontSize: 24,
-    color: darkTheme.colors.background,
-  },
-  buttonStartGame: {
-    marginTop: 12,
-  },
-  textButtonStartGame: {
-    fontSize: 24,
-    lineHeight: 36,
-  },
-});
-
-const mapStateToProps = (state) => {
-  return { ...state.game };
-};
-
-const mapDispatchToProps = (dispatch) => {
-  return bindActionCreators({ ...gameActions }, dispatch);
-};
-
-export default connect(mapStateToProps, mapDispatchToProps)(GameSetupScreen);
+}
