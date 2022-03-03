@@ -1,54 +1,27 @@
 import React from "react";
-import { StyleSheet, View, Image } from "react-native";
-import { Headline, Subheading, Button, Text } from "react-native-paper";
+import { Heading, Text, Button, Image, Center } from "native-base";
 
 import logo from "../assets/branding/icon.png";
-import { darkTheme } from "../styles/theme";
 
 export default function HomeScreen(props) {
   const { navigate } = props.navigation;
 
   return (
-    <View style={styles.viewContainer}>
-      <Image source={logo} style={styles.imageLogo} />
-      <Subheading style={styles.subheadingSubtitle}>Welcome to</Subheading>
-      <Headline style={styles.headlineTitle}>Board Game Assistant!</Headline>
+    <Center flex={1} bg="customBrown">
+      <Image source={logo} size="xl" alt="dice logo" />
+      <Text fontSize="3xl">Welcome to</Text>
+      <Heading size="4xl" lineHeight="2xs" textAlign="center">
+        Board Game Assistant!
+      </Heading>
       <Button
+        size="lg"
+        colorScheme="amber"
         accessibilityLabel="get-started-button"
         testID="get-started-button"
-        mode="contained"
-        color="orange"
         onPress={() => navigate("Setup")}
       >
-        <Text style={styles.buttonStartText}>Start New Game</Text>
+        Start New Game
       </Button>
-    </View>
+    </Center>
   );
 }
-
-const styles = StyleSheet.create({
-  viewContainer: {
-    flex: 1,
-    alignItems: "center",
-    justifyContent: "center",
-    backgroundColor: darkTheme.colors.background,
-  },
-  headlineTitle: {
-    fontSize: 64,
-    lineHeight: 64,
-    textAlign: "center",
-  },
-  subheadingSubtitle: {
-    fontSize: 32,
-    lineHeight: 32,
-    textAlign: "center",
-  },
-  buttonStartText: {
-    fontSize: 24,
-    lineHeight: 36,
-  },
-  imageLogo: {
-    height: 128,
-    width: 128,
-  },
-});
