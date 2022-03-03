@@ -1,32 +1,23 @@
-const rotateActivePlayer = () => {
+export const rotateActivePlayer = () => {
   return { type: "ROTATE_ACTIVE_PLAYER" };
 };
 
-const toggleNeedDice = () => {
+export const toggleNeedDice = () => {
   return { type: "TOGGLE_NEED_DICE" };
 };
 
-const addPlayer = () => {
+export const addPlayer = () => {
   return { type: "ADD_PLAYER" };
 };
 
-const subtractPlayer = () => {
+export const subtractPlayer = () => {
   return { type: "SUBTRACT_PLAYER" };
 };
 
-const setDiceCount = (count) => {
+export const setDiceCount = (count) => {
   return { type: "SET_DICE_COUNT", payload: count };
 };
 
-const setScoringSystem = (scoringSystem) => {
+export const setScoringSystem = (scoringSystem) => {
   return { type: "SET_SCORING_SYSTEM", payload: scoringSystem };
-};
-
-export default {
-  rotateActivePlayer,
-  toggleNeedDice,
-  addPlayer,
-  subtractPlayer,
-  setDiceCount,
-  setScoringSystem,
 };
