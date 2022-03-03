@@ -2,7 +2,6 @@ import "react-native-gesture-handler";
 import React from "react";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import { HomeScreen, GameSetupScreen, GamePlayScreen } from "../screens";
-import { darkTheme } from "../styles/theme";
 
 export default function Navigation(props) {
   const { initialRoute } = props;
@@ -12,7 +11,7 @@ export default function Navigation(props) {
     <Navigator
       initialRouteName={initialRoute || "Home"}
       screenOptions={{
-        cardStyle: { backgroundColor: darkTheme.colors.background },
+        cardStyle: { backgroundColor: "#fff8e6" },
       }}
     >
       <Screen name="Home" component={HomeScreen} />
