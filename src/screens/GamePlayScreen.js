@@ -1,9 +1,10 @@
 import React, { useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { Center, Box, Heading, Text, Button, HStack } from "native-base";
+import { Center, Box, Heading, Text, Button, HStack, Image } from "native-base";
 
 import { rotateActivePlayer } from "../actions/gameActions";
 import getDiceRoll from "../utilities/diceRoller";
+import diceImages from "../assets/dice-faces";
 
 export default function GamePlayScreen() {
   // Hook Access
@@ -54,9 +55,12 @@ export default function GamePlayScreen() {
         {diceRoll[0] !== 0 &&
           diceRoll.map((die, index) => {
             return (
-              <Box key={"DIE" + index}>
-                <Text>{die}</Text>
-              </Box>
+              <Image
+                key={`die${die}${index}`}
+                source={diceImages[`die${die}`]}
+                size="xl"
+                alt={`die with ${die} dots`}
+              />
             );
           })}
       </HStack>
